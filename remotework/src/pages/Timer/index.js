@@ -13,7 +13,6 @@ import ellipse from '../../assets/img/Ellipse.svg'
 
 import ModalPrice from '../../components/ModalPrice'
 import TimeContext from '../../Context/TimeContext'
-import formatingZeroLeft from '../../utils/formatinZeroLeft'
 
 import alarmSound from './Bugle_Tune.mp3'
 
