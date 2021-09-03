@@ -20,7 +20,15 @@ export const AppProvider = ({children}) => {
     const [goal, setGoal] = useState(0)
 
     return(
-        <AppContext.Provider value={{hourlyPrice, setHourlyPrice, time, setTime, goal, setGoal}}>
+        <AppContext.Provider 
+            value={{
+                hourlyPrice, 
+                setHourlyPrice, 
+                time, 
+                setTime, 
+                goal, 
+                setGoal
+            }}>
             {children}
         </AppContext.Provider>
     )

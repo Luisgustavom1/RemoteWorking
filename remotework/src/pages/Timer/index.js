@@ -22,12 +22,14 @@ export default function Timer(){
 
     const [start, setStart] = useState(false)
     const [activeModal, setActiveModal] = useState(false)
+    
+    const timerDate = new Date('2019-02-20T00:00:00')
 
     const { time, setTime, goal, hourlyPrice } = useContext(TimeContext)
 
     var initialDeg = -89.9
 
-    const totalHours = (Number(time.min) + Number(time.seg)/60)/60 + Number(time.hours)
+    const totalHours = (Number(time.min) + Number(time.seg)/60)/60 + Number(time.hours);
     const deg = (totalHours/goal)*3.6*100
 
     const percentageOfTotal = initialDeg + deg
@@ -62,29 +64,15 @@ export default function Timer(){
     }
 
     const count = () => {
-        stopCount()
+        stopCount();
+
+        timerDate.setSeconds(timerDate.getSeconds() + 1);
 
         setTime({
-            hours: time.hours,
-            min: time.min,
-            seg: formatingZeroLeft(Number(time.seg) + 1)
-        })
-
-        if(time.seg > 58) {
-            setTime({
-                hours: time.hours,
-                min: formatingZeroLeft(Number(time.min) + 1),
-                seg: '00'
-            })
-        } 
-
-        if(time.min > 59){
-            setTime({
-                hours: formatingZeroLeft(Number(time.hours) + 1),
-                min: '00',
-                seg: time.seg
-            }) 
-        } 
+            seg: timerDate.getSeconds().toString(),
+            min: timerDate.getMinutes().toString(),
+            hours: timerDate.getHours().toString()
+        });
     }
 
     function resetTime(){
@@ -105,7 +93,7 @@ export default function Timer(){
             return () => clearInterval(interval)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [start, time.seg])
+    }, [start])
     return(
         <>
         <Header/>
@@ -122,7 +110,7 @@ export default function Timer(){
             </div>
             <Counter deg={percentageOfTotal || -90}>
                 <div>
-                    <h1>{time.hours}:{time.min}:{time.seg}</h1>
+                    <h1>{time.hours.padStart(2, '0')}:{time.min.padStart(2, '0')}:{time.seg.padStart(2, '0')}</h1>
                 </div>
             </Counter>
             <section>
